@@ -9,6 +9,7 @@ import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
 import com.projectreactor.webflux.entity.EmployeeEntity;
+import com.projectreactor.webflux.repository.EmployeeReactiveRepository;
 import com.projectreactor.webflux.service.EmployeeService;
 
 import reactor.core.publisher.Flux;
@@ -20,13 +21,23 @@ public class EmployeeHandler {
 	@Autowired
 	EmployeeService employeeService;
 	
+	@Autowired
+	EmployeeReactiveRepository employeeReactiveRepository;
+	
 	public Mono<ServerResponse> employeeDetails(ServerRequest request){
 		 Flux<EmployeeEntity> abc = Flux.range(1, 1000000).doOnNext(s->System.out.println(s))
-				 .map(s-> new EmployeeEntity(s, "Name"+s)).log();
+				 .map(s-> new EmployeeEntity(s, "Name"+s,56,"",76)).log();
 		return ServerResponse.ok()
 				.contentType(MediaType.TEXT_EVENT_STREAM)
 				.body(abc,EmployeeEntity.class);
-		
+			
+	}
+	
+	public Mono<ServerResponse> getEmployeeDetails(ServerRequest request){
+		Flux<EmployeeEntity> abc=employeeReactiveRepository.findAllEmployee();
+		return ServerResponse.ok()
+				.contentType(MediaType.TEXT_EVENT_STREAM)
+				.body(abc,EmployeeEntity.class);
 		
 	}
 	

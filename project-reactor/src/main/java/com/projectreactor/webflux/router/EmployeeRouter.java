@@ -19,6 +19,7 @@ public class EmployeeRouter {
 	public RouterFunction<ServerResponse> routerFunction(){
 		return RouterFunctions.route()
 				.GET("/router/EmployeeDetails",employeeHandler::employeeDetails)
+				.GET("/router/getEmployeeDetails",employeeHandler::getEmployeeDetails)
 				.build();
 		
 	}

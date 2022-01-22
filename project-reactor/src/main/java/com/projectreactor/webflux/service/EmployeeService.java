@@ -13,7 +13,7 @@ public class EmployeeService {
 
 	public List<EmployeeEntity> getEmployeeDetails() {
 		// TODO Auto-generated method stub
-		return IntStream.range(1, 100).mapToObj(s-> new EmployeeEntity(s,"Employee"+s)).collect(Collectors.toList());
+		return IntStream.range(1, 100).mapToObj(s-> new EmployeeEntity(s,"Employee"+s,28,"hi",56)).collect(Collectors.toList());
 	}
 
 
